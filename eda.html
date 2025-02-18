@@ -1,19 +1,35 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Яндекс Еда</title>
- </head>
- <body>
-   <iframe src="https://eda.yandex.ru" width="100%" height="100%" style="border:none;"></iframe>
-   <script>
-     Telegram.WebApp.ready();
-     window.addEventListener('load', () => {
-       localStorage.clear();
-       sessionStorage.clear();
-       console.log('Состояние сброшено');
-     });
-   </script>
- </body>
- </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Яндекс Еда</title>
+</head>
+<body>
+  <iframe id="yandex-eda" src="https://eda.yandex.ru" width="100%" height="100%" style="border:none;"></iframe>
+
+  <script>
+    // Убедитесь, что веб-приложение Telegram готово
+    Telegram.WebApp.ready();
+
+    // Функция для очистки состояния
+    function clearStorage() {
+      localStorage.clear(); // Очищаем локальное хранилище
+      sessionStorage.clear(); // Очищаем сессионное хранилище
+      console.log('Состояние сброшено');
+    }
+
+    // Добавим обработчик для события 'load' iframe
+    document.getElementById('yandex-eda').addEventListener('load', function() {
+      // Ждем загрузки страницы внутри iframe и очищаем состояние
+      clearStorage();
+    });
+
+    // Альтернативно, можно вручную очистить хранилище через определенные интервалы времени
+    window.addEventListener('load', () => {
+      // Подождем немного и очистим
+      setTimeout(clearStorage, 1000); // Ждем 1 секунду после загрузки страницы
+    });
+  </script>
+</body>
+</html>
